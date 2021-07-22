@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';//Подключение о�
 import Grid from '@material-ui/core/Grid';//Подключение Grid-сетки
 import { makeStyles, createStyles } from '@material-ui/core/styles';//Стилизация
 import Typography from '@material-ui/core/Typography';//Стилизация заголовков
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ContactsTable } from "./ContactsTable";//Таблица контактов
 
 
@@ -42,7 +43,7 @@ export const Contacts = () => {
 						но мы хотим сохранить условия*/
 						if (contacts.isLoading) {
 							return (
-								<div>...Loading</div>
+								<CircularProgress />
 							);
 						}
 
