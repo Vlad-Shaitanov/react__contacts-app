@@ -1,5 +1,5 @@
 import React from "react";
-import {Contacts} from "./pages/Contacts/contacts.js";
+import { Contacts } from "./pages/Contacts/index.js";
 
 export function App() {
 	return (

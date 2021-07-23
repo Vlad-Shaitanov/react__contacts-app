@@ -1,11 +1,14 @@
 import { useContacts } from './useContacts';
 import Container from '@material-ui/core/Container';//Подключение общего контейнера
 import Grid from '@material-ui/core/Grid';//Подключение Grid-сетки
+import Box from "@material-ui/core/Box";
 import { makeStyles, createStyles } from '@material-ui/core/styles';//Стилизация
 import Typography from '@material-ui/core/Typography';//Стилизация заголовков
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ContactsTable } from "./ContactsTable";//Таблица контактов
-
+import { ToggleDataViewMode } from "./ToggleDataViewMode";
+import { useDataViewMode } from "./useDataViewMode";
+import { DATA_VIEW_MODES } from './constants';
 
 //Кастомные стили
 const useStyles = makeStyles((theme) =>
@@ -18,24 +21,26 @@ const useStyles = makeStyles((theme) =>
 		},
 	})
 );
-// const useStyles = makeStyles({
-// 	root: {
-// 		marginTop: "24px",
-// 	},
-// });
+
 
 export const Contacts = () => {
 	const classes = useStyles();//Инициализация стилей
 	const contacts = useContacts();
-
+	const [dataViewMode, setDataViewMode] = useDataViewMode();
 
 	return (
 		<Container className={classes.root}>
 			<Grid container>
 				<Grid item xs={12} className={classes.headContainer}>
-					<Typography variant="h3" component="h1">
-						Contacts
-					</Typography>
+					<Box display="flex" justifyContent="space-between">
+						<Typography variant="h4" component="h1">
+							Contacts
+						</Typography>
+						<ToggleDataViewMode
+							dataViewMode={dataViewMode}
+							setDataViewMode={setDataViewMode} />
+
+					</Box>
 				</Grid>
 				<Grid item xs={12}>
 					{(() => {
@@ -53,7 +58,16 @@ export const Contacts = () => {
 							);
 						}
 
-						return <ContactsTable data={contacts.data} />
+						if (dataViewMode === DATA_VIEW_MODES.TABLE) {
+
+							return <ContactsTable data={contacts.data} />
+						}
+
+						if (dataViewMode === DATA_VIEW_MODES.GRID) {
+							return "grid";
+						}
+
+						return null;
 					})()}
 
 				</Grid>

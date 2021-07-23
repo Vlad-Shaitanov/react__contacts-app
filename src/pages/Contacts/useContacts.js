@@ -14,7 +14,7 @@ export const useContacts = () => {
 			try {
 				setIsLoading(true);
 
-				const response = await fetch("https://randomuser.me/api/?results=200");
+				const response = await fetch("https://randomuser.me/api/?results=15");
 				const { results, error } = await response.json();
 
 				//Ловим возможную ошибку
