@@ -24,7 +24,7 @@ export const ContactsTable = ({ data }) => {
 	return (
 		// <div>{data[0].name.first}</div>
 
-		<TableContainer component={Paper}>
+		<TableContainer component={Paper} data-testid="contacts-table-container">
 			<Table className={classes.table} size="small" aria-label="contacts table">
 				<TableHead>
 					<TableRow>

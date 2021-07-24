@@ -48,13 +48,13 @@ export const Contacts = () => {
 						но мы хотим сохранить условия*/
 						if (contacts.isLoading) {
 							return (
-								<CircularProgress />
+								<CircularProgress data-testid="contacts-loader" />
 							);
 						}
 
 						if (contacts.isError) {
 							return (
-								<div>...Error</div>
+								<div data-testid="contacts-error">...Error</div>
 							);
 						}
 
