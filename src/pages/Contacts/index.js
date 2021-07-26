@@ -64,7 +64,9 @@ export const Contacts = () => {
 						}
 
 						if (dataViewMode === DATA_VIEW_MODES.GRID) {
-							return "grid";
+							return (
+								<div data-testid="contacts-grid-container">GRID</div>
+							);
 						}
 
 						return null;
