@@ -6,11 +6,12 @@ import Box from "@material-ui/core/Box";
 import { makeStyles, createStyles } from '@material-ui/core/styles';//Стилизация
 import Typography from '@material-ui/core/Typography';//Стилизация заголовков
 import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
 import { ContactsTable } from "./ContactsTable";//Таблица контактов
 import { ToggleDataViewMode } from "./ToggleDataViewMode";
 import { useDataViewMode } from "./useDataViewMode";
 import { DATA_VIEW_MODES } from './constants';
+import { ContactsFilters } from "./ContactsFilters";
+
 
 //Кастомные стили
 const useStyles = makeStyles((theme) =>
@@ -22,14 +23,16 @@ const useStyles = makeStyles((theme) =>
 			marginBottom: theme.spacing(3),// = 8px(default) * 3 = 24px
 		},
 		filtersContainer: {
-
+			marginBottom: theme.spacing(3),// = 8px(default) * 3 = 24px
 		},
 	})
 );
 
 //Дефолтные значения фильтров
 const FiltersDafaultValue = {
-	fullname: ""
+	fullname: "",
+	gender: "all",
+	nationality: "all"
 };
 
 const filterByFullname = ({ first, last }, fullname) => {
@@ -39,25 +42,42 @@ const filterByFullname = ({ first, last }, fullname) => {
 	);
 };
 
+const filterByGender = (value, gender) => {
+	if (gender === "all") {
+		return true;
+	}
+	return value === gender;
+};
+
+const filterByNationality = (value, nationality) => {
+	if (nationality === "all") {
+		return true;
+	}
+	return value === nationality;
+};
+
 export const Contacts = () => {
 	const classes = useStyles();//Инициализация стилей
 	const contacts = useContacts();
 	const [dataViewMode, setDataViewMode] = useDataViewMode();
 	const [filters, setFilters] = useState(FiltersDafaultValue);
 
-	const handleChangeFilter = (event) => {
+	const updateFilter = (name, value) => {
 		setFilters((prevFilters) => ({
 			...prevFilters,
-			[event.target.name]: event.target.value,
+			[name]: value,
 		}));
 	};
 
-	//Отфильтрованные контакты
-	const filteredContacts = contacts.data.filter(
-		(c) => filterByFullname(c.name, filters.fullname)
+	const clearFilters = () => {
+		setFilters(FiltersDafaultValue);
+	};
 
-	);
-	console.log(filteredContacts);
+	//Отфильтрованные контакты
+	const filteredContacts = contacts.data
+		.filter((c) => filterByFullname(c.name, filters.fullname))
+		.filter((c) => filterByGender(c.gender, filters.gender))
+		.filter((c) => filterByNationality(c.nat, filters.nationality));
 
 	return (
 		<Container className={classes.root}>
@@ -74,15 +94,11 @@ export const Contacts = () => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} className={classes.filtersContainer}>
-					<Box display="flex">
-						<TextField
-							name="fullname"
-							label="Fullname"
-							variant="outlined"
-							size="small"
-							value={filters.fullname}
-							onChange={handleChangeFilter} />
-					</Box>
+					<ContactsFilters
+						filters={filters}
+						updateFilter={updateFilter}
+						clearFilters={clearFilters} />
+
 				</Grid>
 				<Grid item xs={12}>
 					{(() => {
