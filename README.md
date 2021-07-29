@@ -1,6 +1,9 @@
 # Contacts app
 ***
-
+В проекте использованы:
+- Material UI
+- React Hooks
+***
 ##### Задание 1. Данные доступны с сервера [https://randomuser.me/api/?results=200](https://randomuser.me/api/?results=100)
 
 Отображение данных в виде таблицы.
