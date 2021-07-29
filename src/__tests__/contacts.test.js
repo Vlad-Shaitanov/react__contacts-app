@@ -8,6 +8,7 @@ import userEvent from "@testing-library/user-event";//Библиотека дл�
 import { rest } from 'msw'; // src/mocks/handlers.js
 import { Contacts } from "../pages/Contacts";
 import { server } from "../serverTests.js";
+import { users } from "../__fixtures__/users";
 
 
 // Establish API mocking before all tests.
@@ -178,5 +179,59 @@ describe("contacts data view mode", () => {
 		window.localStorage.clear();
 	});
 
+});
 
+describe("contacts filter", () => {
+	test("by default", async () => {
+		//Рендер компонента
+		render(<Contacts />);
+		// screen.debug();
+
+		//Проверяем наличие id в снимке
+		const loader = screen.getByTestId("contacts-loader");
+
+		await waitForElementToBeRemoved(loader);
+
+		expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(2);
+	});
+
+	test("by fullname", async () => {
+		const inputFullnameValue = users[0].name.first;
+		//Рендер компонента
+		render(<Contacts />);
+		// screen.debug();
+
+		//Проверяем наличие id в снимке
+		const loader = screen.getByTestId("contacts-loader");
+
+		await waitForElementToBeRemoved(loader);
+
+		userEvent.type(screen.getByTestId('field-fullname'), inputFullnameValue);
+
+		expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(1);
+		expect(screen.getByTestId("contacts-table-cell-fullname")).toHaveTextContent(inputFullnameValue);
+
+	});
+
+	test("should clear", async () => {
+		const inputFullnameValue = users[0].name.first;
+		//Рендер компонента
+		render(<Contacts />);
+		// screen.debug();
+
+		//Проверяем наличие id в снимке
+		const loader = screen.getByTestId("contacts-loader");
+
+		await waitForElementToBeRemoved(loader);
+
+		userEvent.type(screen.getByTestId('field-fullname'), inputFullnameValue);
+		userEvent.click(
+			screen.getByRole('button', {
+				name: /clear/i
+			})
+		);
+
+		expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(2);
+		expect(screen.getByTestId('field-fullname')).toHaveValue("");
+	})
 });

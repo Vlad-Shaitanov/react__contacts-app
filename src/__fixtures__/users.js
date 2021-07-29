@@ -56,4 +56,60 @@ export const users = [
 		},
 		nat: "US"
 	},
+	{
+		gender: "male",
+		name: {
+			title: "Mr",
+			first: "Carl",
+			last: "Pedersen"
+		},
+		location: {
+			street: {
+				number: 1969,
+				name: "Fuglevænget"
+			},
+			city: "Ulsted, Hals",
+			state: "Midtjylland",
+			country: "Denmark",
+			postcode: 87027,
+			coordinates: {
+				latitude: "-35.1457",
+				longitude: "-86.8681"
+			},
+			timezone: {
+				offset: "-1:00",
+				description: "Azores, Cape Verde Islands"
+			}
+		},
+		email: "carl.pedersen@example.com",
+		login: {
+			uuid: "3b633e5d-2fc5-49cf-a243-1686b053f645",
+			username: "goldenduck198",
+			password: "birgit",
+			salt: "j0WvJW7A",
+			md5: "02c50f59bec7ed083be4468ea18cfb7b",
+			sha1: "05996728ac34a75d6f3a2b12c295aec047629533",
+			sha256: "67b32f7f7b7f16ab86282712dad0c906496c8fdf6c26b4f7ecee646655ade40e"
+		},
+		dob: {
+			date: "1968-03-22T06:45:38.759Z",
+			age: 53
+		},
+		registered: {
+			date: "2011-11-27T08:13:23.990Z",
+			age: 10
+		},
+		phone: "70329423",
+		cell: "46926702",
+		id: {
+			name: "CPR",
+			value: "220368-1276"
+		},
+		picture: {
+			large: "https://randomuser.me/api/portraits/men/39.jpg",
+			medium: "https://randomuser.me/api/portraits/med/men/39.jpg",
+			thumbnail: "https://randomuser.me/api/portraits/thumb/men/39.jpg"
+		},
+		nat: "DK"
+	},
 ];

@@ -39,11 +39,11 @@ export const ContactsTable = ({ data }) => {
 				</TableHead>
 				<TableBody>
 					{data.map((contact) => (
-						<TableRow key={contact.login.uuid}>
+						<TableRow key={contact.login.uuid} data-testid="contacts-table-row">
 							<TableCell>
 								<Avatar src={contact.picture.thumbnail} alt="" />
 							</TableCell>
-							<TableCell>{contact.name.title} {contact.name.first} {contact.name.last}</TableCell>
+							<TableCell data-testid="contacts-table-cell-fullname">{contact.name.title} {contact.name.first} {contact.name.last}</TableCell>
 							<TableCell>
 								<Typography>{format(parseISO(contact.dob.date), 'iiii, MM/dd/yyyy, hh:mm aaa')}</Typography>
 								<Typography>{contact.dob.age} years</Typography>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useContacts } from './useContacts';
 import Container from '@material-ui/core/Container';//Подключение общего контейнера
 import Grid from '@material-ui/core/Grid';//Подключение Grid-сетки
@@ -62,16 +62,16 @@ export const Contacts = () => {
 	const [dataViewMode, setDataViewMode] = useDataViewMode();
 	const [filters, setFilters] = useState(FiltersDafaultValue);
 
-	const updateFilter = (name, value) => {
+	const updateFilter = useCallback((name, value) => {
 		setFilters((prevFilters) => ({
 			...prevFilters,
 			[name]: value,
 		}));
-	};
+	}, []);
 
-	const clearFilters = () => {
+	const clearFilters = useCallback(() => {
 		setFilters(FiltersDafaultValue);
-	};
+	}, []);
 
 	//Отфильтрованные контакты
 	const filteredContacts = contacts.data
